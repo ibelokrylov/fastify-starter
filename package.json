@@ -3,26 +3,28 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.json",
-    "dev": "cross-env NODE_ENV=development nodemon",
+    "watch:dev": "cross-env NODE_ENV=development nodemon",
     "watch": "tsc --watch --preserveWatchOutput --pretty",
-    "start": "node dist/index.js",
-    "start:dev": "concurrently \"pnpm run watch\" \"pnpm run dev\"",
+    "start": "node cross-env NODE_ENV=production dist/index.js",
+    "start:dev": "pnpm run --parallel /^watch/",
     "format": "prettier --write \"src/**/*.ts\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.25.2"
+    "@prisma/client": "^5.8.0",
+    "dotenv": "^16.3.1",
+    "fastify": "^4.25.2",
+    "fastify-plugin": "^4.5.1",
+    "prisma": "^5.8.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
     "concurrently": "^8.2.2",
     "cross-env": "^7.0.3",
-    "fastify-tsconfig": "^2.0.0",
     "nodemon": "^3.0.2",
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",

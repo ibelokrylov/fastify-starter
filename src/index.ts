@@ -1,17 +1,10 @@
-import { fastify } from 'fastify';
+import { app } from './app';
+import 'dotenv/config';
 
-const Port = process.env.PORT || 5001;
-const server = fastify({
-  logger: true,
-});
+const FASTIFY_PORT = Number(process.env.FASTIFY_PORT) || 3006;
 
-const start = async () => {
-  try {
-    await server.listen(Port);
-    console.log('Server started successfully');
-  } catch (err) {
-    server.log.error(err);
-    process.exit(1);
-  }
-};
-start();
+app.listen({ port: FASTIFY_PORT });
+
+console.log(
+  `🚀  Fastify server running on port http://localhost:${FASTIFY_PORT}`,
+);

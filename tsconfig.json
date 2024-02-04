@@ -1,8 +1,10 @@
 {
-  "extends": "fastify-tsconfig",
   "compilerOptions": {
-    "sourceMap": true,
     "outDir": "./dist",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "module": "commonjs",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -14,6 +16,6 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist"],
   "include": ["./src/**/*.ts"]
 }
