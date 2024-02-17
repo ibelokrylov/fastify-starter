@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist",
     "module": "commonjs",
+    "target": "esnext",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
@@ -14,5 +15,5 @@
     "experimentalDecorators": true
   },
   "exclude": ["node_modules", "dist"],
-  "include": ["./src/**/*.ts"]
+  "include": ["./src/**/*.ts", "type.d.ts"]
 }

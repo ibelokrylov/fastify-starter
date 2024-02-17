@@ -1,10 +1,8 @@
 import { app } from './app';
-import 'dotenv/config';
+import { config } from './config';
 
-const FASTIFY_PORT = Number(process.env.FASTIFY_PORT) || 3006;
-
-app.listen({ port: FASTIFY_PORT });
+app.listen({ port: config.app.port });
 
 console.log(
-  `🚀  Fastify server running on port http://localhost:${FASTIFY_PORT}`,
+  `🚀  Fastify server running on port http://localhost:${config.app.port}`,
 );

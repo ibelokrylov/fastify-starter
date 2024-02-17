@@ -9,7 +9,7 @@ async function initDatabaseConnection(): Promise<PrismaClient> {
 
 declare module 'fastify' {
   interface FastifyInstance {
-    prisma: PrismaClient
+    prisma: PrismaClient;
   }
 }
 
@@ -17,7 +17,7 @@ const prismaPlugin = fp(async (server) => {
   const prisma = await initDatabaseConnection();
 
   server.decorate('prisma', prisma);
-  server.addHook('onClose', async () =>  {
+  server.addHook('onClose', async () => {
     await server.prisma.$disconnect();
   });
 });
