@@ -20,11 +20,11 @@ export const authController = (fastifyInstance: FastifyInstance) => {
         const dto = req.body;
         const user_data = await authService.login(dto);
         req.session.set('user_id', user_data.id);
-        reply.send({
+        return reply.send({
           data: user_data,
         });
       } catch (error) {
-        generateErrorHelper(ErrorTypeEnum.DEFAULT, reply, error.message);
+        return generateErrorHelper(ErrorTypeEnum.DEFAULT, reply, error.message);
       }
     },
     schema: {

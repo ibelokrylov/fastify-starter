@@ -19,11 +19,11 @@ export async function userController(fastify: FastifyInstance) {
         const user = await userService.getUserProfile({
           id: req.session.data.user_id as string,
         });
-        reply.send({
+        return reply.send({
           data: user,
         });
       } catch (error) {
-        generateErrorHelper(ErrorTypeEnum.DEFAULT, reply);
+        return generateErrorHelper(ErrorTypeEnum.DEFAULT, reply);
       }
     },
   });
@@ -41,12 +41,11 @@ export async function userController(fastify: FastifyInstance) {
         const user_data = await userService.createUser({
           dto: req.body,
         });
-        console.log('🚀 ~ userController ~ user_data:', user_data);
-        reply.send({
+        return reply.send({
           data: user_data,
         });
       } catch (error) {
-        generateErrorHelper(ErrorTypeEnum.DEFAULT, reply);
+        return generateErrorHelper(ErrorTypeEnum.DEFAULT, reply);
       }
     },
   });

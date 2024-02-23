@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { hashPasswordHelper } from '../../lib/helpers/hash-password.helper';
 import { publicUserSerializer } from '../user/serializers/public-user.serializer';
 import { PublicUser } from '../user/user.entity';
 import { UserService } from '../user/user.service';
@@ -12,6 +12,13 @@ export class AuthService {
       where: { username: dto.username },
     });
     if (!user) {
+      throw new Error('User not found');
+    }
+    const hashPassword = await hashPasswordHelper({
+      password: dto.password,
+      hash: user.hash,
+    });
+    if (hashPassword !== user.password) {
       throw new Error('User not found');
     }
     return publicUserSerializer(user);

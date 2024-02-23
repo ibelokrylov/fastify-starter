@@ -4,6 +4,7 @@ import { generateRandomStringHelper } from '../../lib/helpers/generated-random-s
 import { CreateUserDtoType } from './dto/create-user.dto';
 import { publicUserSerializer } from './serializers/public-user.serializer';
 import { UserEntity, PublicUser } from './user.entity';
+import { hashPasswordHelper } from '../../lib/helpers/hash-password.helper';
 
 export class UserService extends DefaultServiceClass {
   public async getUserProfile({
@@ -29,10 +30,12 @@ export class UserService extends DefaultServiceClass {
     if (user) {
       throw new Error('User already exists');
     }
+    const hash = generateRandomStringHelper(32);
+    const password = await hashPasswordHelper({ password: dto.password, hash });
     const new_user: Prisma.UserCreateInput = {
-      hash: generateRandomStringHelper(32),
+      hash,
       username: dto.username,
-      password: dto.password,
+      password,
     };
     const created_user = await this.prisma.user.create({ data: new_user });
     return publicUserSerializer(created_user);
